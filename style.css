@@ -1,7 +1,7 @@
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
-    background: url('your-background-image.jpg') no-repeat center center fixed;
+    background: url('https://github.com/D3adIgnis/KinkKings/blob/main/images/3d%20logo%20back%202.png?raw=true') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
     margin: 0;
@@ -65,4 +65,3 @@ body {
     background: linear-gradient(45deg, red, gold);
     box-shadow: 0px 0px 15px red;
 }
-
