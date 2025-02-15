@@ -1,34 +1,84 @@
-/* Product Section */
-.product-section {
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background: url('https://github.com/D3adIgnis/KinkKings/blob/main/images/3d%20logo%20back%202.png?raw=true') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* Background Blur Effect */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+/* Best Sellers Title */
+.best-sellers-title {
     text-align: center;
+    font-size: 54px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-shadow: 2px 2px 10px gold;
+}
+
+/* Swiper Carousel */
+.swiper-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
+}
+
+.swiper-slide img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Lovense Banner */
+.lovense-banner {
+    text-align: center;
+    margin-top: 40px;
     padding: 20px;
-    background: #1a1a1a;
+    background: linear-gradient(135deg, black, deepPink);
+    font-size: 24px;
+    font-weight: bold;
     color: white;
-}
-
-.product-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-}
-
-.product-card {
-    background: #282828;
-    padding: 15px;
+    box-shadow: 0px 0px 15px red;
     border-radius: 10px;
+}
+
+/* Buttons */
+.buttons {
     text-align: center;
-    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5);
-    transition: transform 0.3s ease-in-out;
+    margin-top: 20px;
 }
 
-.product-card:hover {
-    transform: scale(1.05);
+.buttons a {
+    text-decoration: none;
+    background: linear-gradient(45deg, gold, deepPink);
+    padding: 12px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    border-radius: 8px;
+    transition: 0.3s;
+    display: inline-block;
+    margin: 10px;
 }
 
-.product-card img {
-    max-width: 100%;
-    border-radius: 10px;
+.buttons a:hover {
+    background: linear-gradient(45deg, red, gold);
+    box-shadow: 0px 0px 15px red;
 }
