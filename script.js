@@ -1,67 +1,50 @@
-/* General Styling */
-body {
-    font-family: Arial, sans-serif;
-    background: url('your-background-image.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
 
-/* Best Sellers Title */
-.best-sellers-title {
-    text-align: center;
-    font-size: 54px;
-    font-weight: bold;
-    margin-top: 20px;
-    text-shadow: 2px 2px 10px gold;
-}
+    // Sample Product Data (Replace with JSON from CSV)
+    const products = [
+        {
+            title: "Magic Wand Original HV-260",
+            image: "https://cdn.shopify.com/s/files/1/0070/9994/0905/products/1_large.jpg",
+            price: "$98.50",
+            stock: 2626
+        },
+        {
+            title: "Coochy Shave Cream-Au Natural 32oz",
+            image: "https://cdn.shopify.com/s/files/1/0070/9994/0905/products/2_large.jpg",
+            price: "$62.00",
+            stock: 2273
+        }
+        // Add more products here or load dynamically
+    ];
 
-/* Swiper Carousel */
-.swiper-container {
-    width: 90%;
-    max-width: 800px;
-    margin: 30px auto;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
-}
-.swiper-slide img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-/* Lovense Banner */
-.lovense-banner {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background: linear-gradient(135deg, black, deepPink);
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    box-shadow: 0px 0px 15px red;
-    border-radius: 10px;
-}
-
-/* Buttons */
-.buttons {
-    text-align: center;
-    margin-top: 20px;
-}
-.buttons a {
-    text-decoration: none;
-    background: linear-gradient(45deg, gold, deepPink);
-    padding: 12px 20px;
-    font-size: 20px;
-    font-weight: bold;
-    color: black;
-    border-radius: 8px;
-    transition: 0.3s;
-    display: inline-block;
-    margin: 10px;
-}
-.buttons a:hover {
-    background: linear-gradient(45deg, red, gold);
-    box-shadow: 0px 0px 15px red;
-}
+    // Display Products on Website
+    const productContainer = document.getElementById("product-list");
+    products.forEach(product => {
+        let productCard = `
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.title}">
+                <h3>${product.title}</h3>
+                <p>Price: ${product.price}</p>
+                <p>Stock: ${product.stock} available</p>
+            </div>
+        `;
+        productContainer.innerHTML += productCard;
+    });
+});
