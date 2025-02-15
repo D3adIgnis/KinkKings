@@ -22,6 +22,46 @@ body::before {
     z-index: -1;
 }
 
+/* Header Styling */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header img {
+    max-width: 150px;
+    margin-bottom: 10px;
+    content: url('https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true');
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: gold;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    color: deepPink;
+    text-shadow: 0px 0px 10px deepPink;
+}
+
 /* Best Sellers Title */
 .best-sellers-title {
     text-align: center;
