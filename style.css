@@ -62,11 +62,17 @@ body::before {
 }
 
 /* Logo */
-.header img {
-    max-width: 80px;
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.logo {
+    max-width: 120px; /* Adjusted size for better balance */
     height: auto;
     display: block;
-    margin: 0 auto;
 }
 
 /* Navigation Bar */
@@ -99,7 +105,7 @@ body::before {
 }
 
 .section-title {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
     text-shadow: 2px 2px 10px gold;
@@ -122,7 +128,7 @@ body::before {
 
 .swiper-slide img {
     width: 100%;
-    max-height: 350px;
+    max-height: 400px;
     object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
@@ -148,7 +154,7 @@ body::before {
 
 .collection {
     text-align: center;
-    width: 260px;
+    width: 270px;
 }
 
 .collection img {
@@ -166,7 +172,7 @@ body::before {
     display: block;
     margin-top: 10px;
     background: gold;
-    padding: 10px;
+    padding: 12px;
     text-decoration: none;
     font-weight: bold;
     color: black;
@@ -188,7 +194,7 @@ body::before {
 .newsletter input {
     padding: 12px;
     font-size: 16px;
-    width: 280px;
+    width: 300px;
     margin-right: 10px;
     border-radius: 5px;
     border: none;
@@ -241,6 +247,10 @@ footer {
         gap: 8px;
     }
 
+    .logo {
+        max-width: 100px; /* Smaller logo for mobile */
+    }
+
     .navbar {
         flex-direction: column;
         text-align: center;
@@ -258,6 +268,6 @@ footer {
     }
 
     .swiper-slide img {
-        max-height: 250px;
+        max-height: 280px;
     }
 }
