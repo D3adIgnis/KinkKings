@@ -1,9 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 import { getFirestore, collection, getDocs, query, orderBy, limit, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-// Firebase configuration
+// Firebase configuration - Secure API Key
 const firebaseConfig = {
-    apiKey: "AIzaSyAvzEbwtrjRifb3C_Ee-UYyEfJb9g_4hLc",
+    apiKey: "YOUR_FIREBASE_API_KEY",  // Replace with a secured API key
     authDomain: "kinkkings-toys.firebaseapp.com",
     projectId: "kinkkings-toys",
     storageBucket: "kinkkings-toys.appspot.com",
@@ -44,7 +44,7 @@ async function fetchBestSellers() {
         let slides = "";
         querySnapshot.forEach((doc) => {
             const product = doc.data();
-            const productImage = product.images?.[0] || 'default-image.jpg'; // Default fallback image
+            const productImage = product.images?.[0] || 'https://via.placeholder.com/300x300?text=No+Image'; // Default fallback image
             const productTitle = product.title || "Unnamed Product"; // Default title
 
             slides += `
