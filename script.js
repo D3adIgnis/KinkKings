@@ -1,55 +1,83 @@
-document.addEventListener("DOMContentLoaded", function () {
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
 
-    // Load Product Data from JSON File for Carousel and Product List
-    fetch('products.json')
-        .then(response => response.json())
-        .then(products => {
-            const swiperWrapper = document.querySelector(".swiper-wrapper");
-            swiperWrapper.innerHTML = ""; // Clear existing slides
-            const productContainer = document.getElementById("product-list");
-            productContainer.innerHTML = ""; // Clear previous product listings
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-            // Loop through products and dynamically generate slides and product cards
-            products.forEach(product => {
-                // Add to Carousel
-                let slide = `
-                    <div class="swiper-slide">
-                        <img src="${product["Image 1"]}" alt="${product["Product Title"]}">
+// Fetch products from Firestore
+async function fetchProducts() {
+    const productContainer = document.getElementById("product-list");
+    productContainer.innerHTML = ""; // Clear existing products
+
+    try {
+        const querySnapshot = await db.collection("products").limit(12).get();
+        querySnapshot.forEach(doc => {
+            const product = doc.data();
+            
+            // Build image carousel if multiple images exist
+            let imageCarousel = "";
+            if (product.images.length > 1) {
+                imageCarousel = `
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            ${product.images.map(img => `
+                                <div class="swiper-slide">
+                                    <img src="${img}" alt="${product.title}">
+                                </div>`).join("")}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
                     </div>
                 `;
-                swiperWrapper.innerHTML += slide;
+            } else {
+                imageCarousel = `<img src="${product.images[0]}" alt="${product.title}">`;
+            }
 
-                // Add to Product List
-                let productCard = `
-                    <div class="product-card">
-                        <img src="${product["Image 1"]}" alt="${product["Product Title"]}">
-                        <h3>${product["Product Title"]}</h3>
-                        <p>Price: ${product.price || "N/A"}</p>
-                        <p>Stock: ${product.stock || "Out of Stock"} available</p>
-                    </div>
-                `;
-                productContainer.innerHTML += productCard;
-            });
+            // Create product card
+            let productCard = `
+                <div class="product-card">
+                    ${imageCarousel}
+                    <h3>${product.title}</h3>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <p>Stock: ${product.stock} available</p>
+                    <button class="add-to-cart" data-id="${doc.id}">Add to Cart</button>
+                </div>
+            `;
+            
+            productContainer.innerHTML += productCard;
+        });
 
-            // Reinitialize Swiper after dynamically adding slides
-            swiper.update();
-        })
-        .catch(error => console.error('Error loading products:', error));
-});
+        // Initialize Swiper after images load
+        new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+    } catch (error) {
+        console.error("Error loading products:", error);
+    }
+}
+
+// Load products when the page loads
+document.addEventListener("DOMContentLoaded", fetchProducts);
