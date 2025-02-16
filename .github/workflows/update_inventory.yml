@@ -1,0 +1,30 @@
+name: Update Inventory Daily
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # Runs every day at 3 AM UTC
+
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  update-inventory:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: pip install firebase-admin pandas requests
+
+      - name: Run Update Script
+        env:
+          FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
+        run: |
+          echo "$FIREBASE_KEY" > firebase_key.json
+          python update_inventory.py
