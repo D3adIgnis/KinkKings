@@ -34,22 +34,24 @@
         </nav>
     </header>
 
-    <!-- Best Sellers Title -->
-    <p class="best-sellers-title">🔥 Best Sellers 🔥</p>
+    <!-- Best Sellers Section -->
+    <section class="best-sellers">
+        <h2 class="section-title">Best Sellers</h2>
 
-    <!-- Image Carousel (Best Sellers) -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <!-- Dynamic Best-Selling Products will be loaded here -->
+        <!-- Image Carousel (Best Sellers) -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id="best-sellers-carousel">
+                <!-- Dynamic Best-Selling Products will be loaded here -->
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
-    </div>
+    </section>
 
     <!-- Featured Collections -->
     <section class="featured">
-        <h2>🌟 Featured Collections 🌟</h2>
+        <h2 class="section-title">Featured Collections</h2>
         <div class="featured-collections">
             <div class="collection">
                 <img src="https://example.com/new_arrivals.jpg" alt="New Arrivals">
@@ -71,8 +73,8 @@
 
     <!-- Newsletter Signup -->
     <section class="newsletter">
-        <h2>📩 Join Our VIP List</h2>
-        <p>Sign up to receive exclusive offers, discounts, and new arrivals straight to your inbox!</p>
+        <h2 class="section-title">Join Our VIP List</h2>
+        <p>Sign up to receive exclusive offers, discounts, and new arrivals straight to your inbox.</p>
         <form id="newsletter-form">
             <input type="email" placeholder="Enter your email" required>
             <button type="submit">Subscribe</button>
