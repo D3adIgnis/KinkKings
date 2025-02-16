@@ -10,11 +10,11 @@ db = firestore.client()
 
 # Load CSV file
 csv_file = "Inventory.csv"
-chunk_size = 500  # Firestore limits, so we upload in chunks
+chunk_size = 500  # Firestore has a limit, so we upload in chunks
 
 # Define correct column names based on your CSV
 expected_columns = [
-    "Product Title", "MSRP", "SKU", "Category", "Current Inventory Stock", "Body HTML",
+    "Product Title", "MSRP", "SKU", "Category", "Current Inventory", "Body HTML",
     "Image 1", "Image 2", "Image 3", "Image 4", "Image 5",
     "Image 6", "Image 7", "Image 8", "Image 9", "Image 10"
 ]
@@ -40,7 +40,7 @@ for chunk in pd.read_csv(csv_file, chunksize=chunk_size, usecols=expected_column
             "price": float(row["MSRP"]) if pd.notna(row["MSRP"]) else 0.0,
             "sku": str(row["SKU"]),
             "category": str(row["Category"]),
-            "stock": int(row["Current Inventory Stock"]) if pd.notna(row["Current Inventory Stock"]) else 0,
+            "stock": int(row["Current Inventory"]) if pd.notna(row["Current Inventory"]) else 0,
             "description": str(row["Body HTML"]) if pd.notna(row["Body HTML"]) else "",
             "images": images  # Store all images in an array
         }
