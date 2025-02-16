@@ -20,7 +20,10 @@ jobs:
           python-version: '3.x'
 
       - name: Install Dependencies
-        run: pip install firebase-admin pandas requests
+        run: pip install firebase-admin pandas
+
+      - name: Verify Inventory File Exists
+        run: ls -l Inventory.csv
 
       - name: Run Update Script
         env:
