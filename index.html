@@ -13,6 +13,17 @@
 
     <!-- Header Section -->
     <header class="header">
+        <div class="header-top">
+            <div class="social-links">
+                <a href="https://instagram.com/kinkkings" target="_blank">Instagram</a>
+                <a href="https://twitter.com/kinkkings" target="_blank">Twitter</a>
+                <a href="https://tiktok.com/@kinkkings" target="_blank">TikTok</a>
+            </div>
+            <div class="auth-links">
+                <a href="login.html">Login</a> | 
+                <a href="register.html">Register</a>
+            </div>
+        </div>
         <img src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" alt="Kink Kings Logo">
         <nav class="navbar">
             <a href="index.html">Home</a>
@@ -36,10 +47,46 @@
         <div class="swiper-pagination"></div>
     </div>
 
-    <!-- Product List Section -->
-    <div id="product-list" class="product-container">
-        <!-- Product Cards will be dynamically added here -->
-    </div>
+    <!-- Featured Collections -->
+    <section class="featured">
+        <h2>🌟 Featured Collections 🌟</h2>
+        <div class="featured-collections">
+            <div class="collection">
+                <img src="https://example.com/new_arrivals.jpg" alt="New Arrivals">
+                <h3>New Arrivals</h3>
+                <a href="new_arrivals.html">Shop Now</a>
+            </div>
+            <div class="collection">
+                <img src="https://example.com/trending.jpg" alt="Trending">
+                <h3>Trending</h3>
+                <a href="trending.html">Shop Now</a>
+            </div>
+            <div class="collection">
+                <img src="https://example.com/best_sellers.jpg" alt="Best Sellers">
+                <h3>Best Sellers</h3>
+                <a href="best_sellers.html">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter">
+        <h2>📩 Join Our VIP List</h2>
+        <p>Sign up to receive exclusive offers, discounts, and new arrivals straight to your inbox!</p>
+        <form id="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Kink Kings. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+    </footer>
 
     <!-- Swiper.js Script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
