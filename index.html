@@ -13,19 +13,10 @@
 
     <!-- Header Section -->
     <header class="header">
-        <div class="header-top">
-            <div class="social-links">
-                <a href="https://instagram.com/kinkkings" target="_blank">Instagram</a>
-                <a href="https://twitter.com/kinkkings" target="_blank">Twitter</a>
-                <a href="https://tiktok.com/@kinkkings" target="_blank">TikTok</a>
-            </div>
-            <div class="auth-links">
-                <a href="login.html">Login</a> | 
-                <a href="register.html">Register</a>
-            </div>
-        </div>
         <div class="logo-container">
-            <img class="logo" src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" alt="Kink Kings Logo">
+            <a href="https://instagram.com/kinkkings" target="_blank">
+                <img class="logo" src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" alt="Kink Kings Logo">
+            </a>
         </div>
         <nav class="navbar">
             <a href="index.html">Home</a>
@@ -33,6 +24,8 @@
             <a href="products.html">Products</a>
             <a href="about.html">About Us</a>
             <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
         </nav>
     </header>
 
@@ -88,6 +81,11 @@
             <a href="terms.html">Terms & Conditions</a>
             <a href="privacy.html">Privacy Policy</a>
         </div>
+        <div class="social-links">
+            <a href="https://instagram.com/kinkkings" target="_blank">Instagram</a>
+            <a href="https://twitter.com/kinkkings" target="_blank">Twitter</a>
+            <a href="https://tiktok.com/@kinkkings" target="_blank">TikTok</a>
+        </div>
     </footer>
 
     <!-- Firebase Initialization -->
@@ -95,7 +93,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 
         const firebaseConfig = {
-            apiKey: "YOUR_FIREBASE_API_KEY",
+            apiKey: import.meta.env.VITE_FIREBASE_API_KEY,  // Secured API Key
             authDomain: "kinkkings-toys.firebaseapp.com",
             projectId: "kinkkings-toys",
             storageBucket: "kinkkings-toys.appspot.com",
