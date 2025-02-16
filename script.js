@@ -1,67 +1,49 @@
-// Initialize Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+import { getFirestore, collection, getDocs, query, orderBy, limit, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+// Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyAvzEbwtrjRifb3C_Ee-UYyEfJb9g_4hLc",
+    authDomain: "kinkkings-toys.firebaseapp.com",
+    projectId: "kinkkings-toys",
+    storageBucket: "kinkkings-toys.appspot.com",
+    messagingSenderId: "628196071186",
+    appId: "1:628196071186:web:6eaa266a2de6ef7ece45cb"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// Fetch products from Firestore
-async function fetchProducts() {
-    const productContainer = document.getElementById("product-list");
-    productContainer.innerHTML = ""; // Clear existing products
+// Fetch Best-Selling Products and Update Carousel
+async function fetchBestSellers() {
+    const carouselContainer = document.querySelector(".swiper-wrapper");
+    carouselContainer.innerHTML = ""; // Clear existing products
 
     try {
-        const querySnapshot = await db.collection("products").limit(12).get();
-        querySnapshot.forEach(doc => {
+        const q = query(collection(db, "products"), orderBy("sales_count", "desc"), limit(6));
+        const querySnapshot = await getDocs(q);
+        
+        querySnapshot.forEach((doc) => {
             const product = doc.data();
-            
-            // Build image carousel if multiple images exist
-            let imageCarousel = "";
-            if (product.images.length > 1) {
-                imageCarousel = `
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            ${product.images.map(img => `
-                                <div class="swiper-slide">
-                                    <img src="${img}" alt="${product.title}">
-                                </div>`).join("")}
-                        </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-pagination"></div>
+            const slide = `
+                <div class="swiper-slide">
+                    <div class="carousel-item">
+                        <img src="${product.images[0] || 'default-image.jpg'}" alt="${product.title}">
+                        <p class="carousel-title">${product.title}</p>
                     </div>
-                `;
-            } else {
-                imageCarousel = `<img src="${product.images[0]}" alt="${product.title}">`;
-            }
-
-            // Create product card
-            let productCard = `
-                <div class="product-card">
-                    ${imageCarousel}
-                    <h3>${product.title}</h3>
-                    <p>Price: $${product.price.toFixed(2)}</p>
-                    <p>Stock: ${product.stock} available</p>
-                    <button class="add-to-cart" data-id="${doc.id}">Add to Cart</button>
                 </div>
             `;
-            
-            productContainer.innerHTML += productCard;
+            carouselContainer.innerHTML += slide;
         });
 
-        // Initialize Swiper after images load
+        // Initialize Swiper.js after images load
         new Swiper('.swiper-container', {
             slidesPerView: 1,
             spaceBetween: 10,
             loop: true,
             autoplay: {
-                delay: 3000,
+                delay: 3000, // Switch image every 3 seconds
                 disableOnInteraction: false,
             },
             navigation: {
@@ -75,9 +57,26 @@ async function fetchProducts() {
         });
 
     } catch (error) {
-        console.error("Error loading products:", error);
+        console.error("Error loading best sellers:", error);
     }
 }
 
-// Load products when the page loads
-document.addEventListener("DOMContentLoaded", fetchProducts);
+// Function to update `sales_count` when an item is purchased
+async function updateSalesCount(productId) {
+    const productRef = doc(db, "products", productId);
+    await updateDoc(productRef, {
+        sales_count: increment(1)  // Increase sales count by 1
+    });
+    console.log(`✅ Sales count updated for product ID: ${productId}`);
+}
+
+// Add event listeners to all "Add to Cart" buttons
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("add-to-cart")) {
+        const productId = event.target.dataset.id;
+        updateSalesCount(productId);
+    }
+});
+
+// Load best sellers when the page loads
+document.addEventListener("DOMContentLoaded", fetchBestSellers);
