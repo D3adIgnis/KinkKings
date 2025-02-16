@@ -41,7 +41,7 @@
         <h2 class="section-title">Best Sellers</h2>
         <div class="swiper-container">
             <div class="swiper-wrapper" id="best-sellers-carousel">
-                <!-- Best-Selling Products will be loaded here dynamically -->
+                <!-- Best-selling products will be loaded here dynamically -->
             </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
@@ -54,17 +54,17 @@
         <h2 class="section-title">Featured Collections</h2>
         <div class="featured-collections">
             <div class="collection">
-                <img src="https://example.com/new_arrivals.jpg" alt="New Arrivals">
+                <img src="https://via.placeholder.com/300x200" alt="New Arrivals">
                 <h3>New Arrivals</h3>
                 <a href="new_arrivals.html">Shop Now</a>
             </div>
             <div class="collection">
-                <img src="https://example.com/trending.jpg" alt="Trending">
+                <img src="https://via.placeholder.com/300x200" alt="Trending">
                 <h3>Trending</h3>
                 <a href="trending.html">Shop Now</a>
             </div>
             <div class="collection">
-                <img src="https://example.com/best_sellers.jpg" alt="Best Sellers">
+                <img src="https://via.placeholder.com/300x200" alt="Best Sellers">
                 <h3>Best Sellers</h3>
                 <a href="best_sellers.html">Shop Now</a>
             </div>
@@ -89,6 +89,22 @@
             <a href="privacy.html">Privacy Policy</a>
         </div>
     </footer>
+
+    <!-- Firebase Initialization -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "kinkkings-toys.firebaseapp.com",
+            projectId: "kinkkings-toys",
+            storageBucket: "kinkkings-toys.appspot.com",
+            messagingSenderId: "628196071186",
+            appId: "1:628196071186:web:3c5196e4a91681bace45cb"
+        };
+
+        const app = initializeApp(firebaseConfig);
+    </script>
 
     <!-- Swiper.js Script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
