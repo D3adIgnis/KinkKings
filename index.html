@@ -4,95 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Best Sellers | Kink Kings</title>
-    
-    <!-- Firebase -->
-    <script type="module">
-        // Import Firebase SDKs
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAvzEbwtrjRifb3C_Ee-UYyEfJb9g_4hLc",
-            authDomain: "kinkkings-toys.firebaseapp.com",
-            projectId: "kinkkings-toys",
-            storageBucket: "kinkkings-toys.appspot.com",
-            messagingSenderId: "628196071186",
-            appId: "1:628196071186:web:6eaa266a2de6ef7ece45cb"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Fetch Products and Update UI
-        async function fetchProducts() {
-            const productContainer = document.querySelector(".swiper-wrapper");
-            const productList = document.getElementById("product-list");
-            productContainer.innerHTML = ""; // Clear existing products
-
-            try {
-                const querySnapshot = await getDocs(collection(db, "products"));
-                let count = 0;
-                
-                querySnapshot.forEach((doc) => {
-                    if (count < 6) { // Show top 6 products in carousel
-                        const product = doc.data();
-                        const slide = `
-                            <div class="swiper-slide">
-                                <img src="${product.images[0] || 'default-image.jpg'}" alt="${product.title}">
-                            </div>
-                        `;
-                        productContainer.innerHTML += slide;
-                        count++;
-                    }
-
-                    // Add Product Cards
-                    const product = doc.data();
-                    let imageHtml = product.images.length > 1
-                        ? `<div class="swiper-container"><div class="swiper-wrapper">
-                            ${product.images.map(img => `<div class="swiper-slide"><img src="${img}" alt="${product.title}"></div>`).join("")}
-                            </div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>`
-                        : `<img src="${product.images[0] || 'default-image.jpg'}" alt="${product.title}">`;
-
-                    let productCard = `
-                        <div class="product-card">
-                            ${imageHtml}
-                            <h3>${product.title}</h3>
-                            <p>Price: $${product.price.toFixed(2)}</p>
-                            <p>Stock: ${product.stock} available</p>
-                            <button class="add-to-cart" data-id="${doc.id}">Add to Cart</button>
-                        </div>
-                    `;
-                    productList.innerHTML += productCard;
-                });
-
-                // Initialize Swiper after images load
-                new Swiper('.swiper-container', {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                    loop: true,
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                    },
-                });
-
-            } catch (error) {
-                console.error("Error loading products:", error);
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", fetchProducts);
-    </script>
 
     <!-- Swiper.js for Carousel -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
@@ -115,10 +26,10 @@
     <!-- Best Sellers Title -->
     <p class="best-sellers-title">🔥 Best Sellers 🔥</p>
 
-    <!-- Image Carousel -->
+    <!-- Image Carousel (Best Sellers) -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <!-- Dynamic Product Images Loaded from Firestore -->
+            <!-- Dynamic Best-Selling Products will be loaded here -->
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
@@ -132,5 +43,7 @@
 
     <!-- Swiper.js Script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script type="module" src="script.js"></script>
+
 </body>
 </html>
