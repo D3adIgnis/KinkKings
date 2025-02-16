@@ -63,7 +63,7 @@ body::before {
 
 /* Logo */
 .header img {
-    max-width: 120px; /* Resized for better proportion */
+    max-width: 80px; /* Resized for better proportion */
     height: auto;
     display: block;
     margin: 0 auto;
