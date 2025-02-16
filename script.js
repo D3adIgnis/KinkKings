@@ -15,37 +15,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Fetch Best-Selling Products and Update Carousel
+// Function to fetch and display best-selling products in the carousel
 async function fetchBestSellers() {
-    const carouselContainer = document.querySelector(".swiper-wrapper");
+    const carouselContainer = document.getElementById("best-sellers-carousel");
     carouselContainer.innerHTML = ""; // Clear existing products
 
     try {
-        const q = query(collection(db, "products"), orderBy("sales_count", "desc"), limit(6));
+        const q = query(
+            collection(db, "products"),
+            orderBy("sales_count", "desc"),
+            limit(6)
+        );
+
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
-            console.warn("No best-selling products found.");
+            console.warn("⚠️ No best-selling products found.");
             carouselContainer.innerHTML = `<p class="no-products">No best sellers available at the moment.</p>`;
             return;
         }
 
         querySnapshot.forEach((doc) => {
             const product = doc.data();
-            const productImage = product.images?.[0] || 'default-image.jpg'; // Default image fallback
+            const productImage = product.images?.[0] || 'default-image.jpg'; // Default fallback image
+            const productTitle = product.title || "Unnamed Product"; // Default title
 
             const slide = `
                 <div class="swiper-slide">
                     <div class="carousel-item">
-                        <img src="${productImage}" alt="${product.title}" loading="lazy">
-                        <p class="carousel-title">${product.title}</p>
+                        <img src="${productImage}" alt="${productTitle}" loading="lazy">
+                        <p class="carousel-title">${productTitle}</p>
                     </div>
                 </div>
             `;
             carouselContainer.innerHTML += slide;
         });
 
-        // Initialize Swiper.js after content loads
+        // Ensure Swiper.js only initializes once
         initializeSwiper();
 
     } catch (error) {
@@ -54,9 +60,13 @@ async function fetchBestSellers() {
     }
 }
 
-// Function to initialize Swiper after data loads
+// Function to initialize Swiper.js after data loads
 function initializeSwiper() {
-    new Swiper('.swiper-container', {
+    if (window.swiperInstance) {
+        window.swiperInstance.destroy(true, true); // Destroy existing instance before reinitializing
+    }
+    
+    window.swiperInstance = new Swiper('.swiper-container', {
         slidesPerView: 1,
         spaceBetween: 10,
         loop: true,
@@ -77,10 +87,15 @@ function initializeSwiper() {
 
 // Function to update `sales_count` when an item is purchased
 async function updateSalesCount(productId) {
+    if (!productId) {
+        console.error("❌ Missing product ID.");
+        return;
+    }
+
     try {
         const productRef = doc(db, "products", productId);
         await updateDoc(productRef, {
-            sales_count: increment(1)  // Increase sales count by 1
+            sales_count: increment(1) // Increase sales count by 1
         });
         console.log(`✅ Sales count updated for product ID: ${productId}`);
     } catch (error) {
