@@ -18,6 +18,12 @@ const db = getFirestore(app);
 // Function to fetch and display best-selling products in the carousel
 async function fetchBestSellers() {
     const carouselContainer = document.getElementById("best-sellers-carousel");
+
+    if (!carouselContainer) {
+        console.error("❌ Carousel container not found.");
+        return;
+    }
+
     carouselContainer.innerHTML = ""; // Clear existing products
 
     try {
@@ -35,12 +41,13 @@ async function fetchBestSellers() {
             return;
         }
 
+        let slides = "";
         querySnapshot.forEach((doc) => {
             const product = doc.data();
             const productImage = product.images?.[0] || 'default-image.jpg'; // Default fallback image
             const productTitle = product.title || "Unnamed Product"; // Default title
 
-            const slide = `
+            slides += `
                 <div class="swiper-slide">
                     <div class="carousel-item">
                         <img src="${productImage}" alt="${productTitle}" loading="lazy">
@@ -48,10 +55,9 @@ async function fetchBestSellers() {
                     </div>
                 </div>
             `;
-            carouselContainer.innerHTML += slide;
         });
 
-        // Ensure Swiper.js only initializes once
+        carouselContainer.innerHTML = slides;
         initializeSwiper();
 
     } catch (error) {
@@ -65,7 +71,7 @@ function initializeSwiper() {
     if (window.swiperInstance) {
         window.swiperInstance.destroy(true, true); // Destroy existing instance before reinitializing
     }
-    
+
     window.swiperInstance = new Swiper('.swiper-container', {
         slidesPerView: 1,
         spaceBetween: 10,
