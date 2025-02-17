@@ -16,7 +16,8 @@
     <header class="header">
         <div class="logo-container">
             <a href="index.html">
-                <img class="logo" src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" alt="Kink Kings Logo">
+                <img class="logo" src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" 
+                    alt="Kink Kings Logo" loading="lazy">
             </a>
         </div>
         <nav class="navbar">
@@ -93,16 +94,29 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 
-        const firebaseConfig = {
-            apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "YOUR_SECURED_API_KEY",
-            authDomain: "kinkkings-toys.firebaseapp.com",
-            projectId: "kinkkings-toys",
-            storageBucket: "kinkkings-toys.appspot.com",
-            messagingSenderId: "628196071186",
-            appId: "1:628196071186:web:3c5196e4a91681bace45cb"
-        };
+        async function getFirebaseConfig() {
+            try {
+                const response = await fetch("firebase-config.json");
+                if (!response.ok) throw new Error("Failed to load Firebase config.");
+                return await response.json();
+            } catch (error) {
+                console.error("❌ ERROR: Firebase configuration load failed:", error);
+                return null;
+            }
+        }
 
-        const app = initializeApp(firebaseConfig);
+        async function initFirebase() {
+            const firebaseConfig = await getFirebaseConfig();
+            if (!firebaseConfig) {
+                console.error("❌ ERROR: Firebase initialization aborted due to missing config.");
+                return;
+            }
+
+            initializeApp(firebaseConfig);
+            console.log("✅ Firebase Initialized Securely");
+        }
+
+        initFirebase();
     </script>
 
     <!-- Swiper.js Script -->
