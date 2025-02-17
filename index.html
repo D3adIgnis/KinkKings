@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover Kink Kings' best-selling adult toys, trending collections, and exclusive deals. Join our VIP list for special discounts.">
     <title>Kink Kings | Best Sellers</title>
 
     <!-- Swiper.js for Carousel -->
@@ -14,7 +15,7 @@
     <!-- Header Section -->
     <header class="header">
         <div class="logo-container">
-            <a href="https://instagram.com/kinkkings" target="_blank">
+            <a href="index.html">
                 <img class="logo" src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" alt="Kink Kings Logo">
             </a>
         </div>
@@ -36,8 +37,8 @@
             <div class="swiper-wrapper" id="best-sellers-carousel">
                 <!-- Best-selling products will be loaded here dynamically -->
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next" aria-label="Next"></div>
+            <div class="swiper-button-prev" aria-label="Previous"></div>
             <div class="swiper-pagination"></div>
         </div>
     </section>
@@ -47,17 +48,17 @@
         <h2 class="section-title">Featured Collections</h2>
         <div class="featured-collections">
             <div class="collection">
-                <img src="https://via.placeholder.com/300x200" alt="New Arrivals">
+                <img src="https://via.placeholder.com/300x200" alt="New Arrivals" loading="lazy">
                 <h3>New Arrivals</h3>
                 <a href="new_arrivals.html">Shop Now</a>
             </div>
             <div class="collection">
-                <img src="https://via.placeholder.com/300x200" alt="Trending">
+                <img src="https://via.placeholder.com/300x200" alt="Trending" loading="lazy">
                 <h3>Trending</h3>
                 <a href="trending.html">Shop Now</a>
             </div>
             <div class="collection">
-                <img src="https://via.placeholder.com/300x200" alt="Best Sellers">
+                <img src="https://via.placeholder.com/300x200" alt="Best Sellers" loading="lazy">
                 <h3>Best Sellers</h3>
                 <a href="best_sellers.html">Shop Now</a>
             </div>
@@ -93,7 +94,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 
         const firebaseConfig = {
-            apiKey: import.meta.env.VITE_FIREBASE_API_KEY,  // Secured API Key
+            apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "YOUR_SECURED_API_KEY",
             authDomain: "kinkkings-toys.firebaseapp.com",
             projectId: "kinkkings-toys",
             storageBucket: "kinkkings-toys.appspot.com",
