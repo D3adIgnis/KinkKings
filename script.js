@@ -1,11 +1,13 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
 import { getFirestore, collection, getDocs, query, orderBy, limit, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
+let db; // Global Firestore database reference
+
 // Function to fetch Firebase configuration securely
 async function getFirebaseConfig() {
     try {
         const response = await fetch("firebase-config.json");
-        if (!response.ok) throw new Error("Failed to load Firebase config.");
+        if (!response.ok) throw new Error("Failed to load Firebase config. Check the file path.");
         return await response.json();
     } catch (error) {
         console.error("❌ ERROR: Firebase configuration load failed:", error);
@@ -16,17 +18,20 @@ async function getFirebaseConfig() {
 // Initialize Firebase
 async function initFirebase() {
     const firebaseConfig = await getFirebaseConfig();
-    if (!firebaseConfig) return; // Stop if config fails
+    if (!firebaseConfig) {
+        console.error("❌ ERROR: Firebase initialization aborted due to missing config.");
+        return;
+    }
 
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    db = getFirestore(app); // Assign Firestore database globally
     console.log("✅ Firebase Initialized Securely");
 
-    fetchBestSellers(db);
+    fetchBestSellers();
 }
 
 // Function to fetch and display best-selling products in the carousel
-async function fetchBestSellers(db) {
+async function fetchBestSellers() {
     const carouselContainer = document.getElementById("best-sellers-carousel");
     if (!carouselContainer) {
         console.error("❌ ERROR: Carousel container not found.");
