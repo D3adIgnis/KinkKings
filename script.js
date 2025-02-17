@@ -3,7 +3,7 @@ import { getFirestore, collection, getDocs, query, orderBy, limit, doc, updateDo
 
 // Firebase configuration - Secure API Key
 const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_API_KEY",  // Replace with a secured API key
+    apiKey: process.env.FIREBASE_API_KEY || "YOUR_SECURED_API_KEY",  
     authDomain: "kinkkings-toys.firebaseapp.com",
     projectId: "kinkkings-toys",
     storageBucket: "kinkkings-toys.appspot.com",
@@ -20,11 +20,11 @@ async function fetchBestSellers() {
     const carouselContainer = document.getElementById("best-sellers-carousel");
 
     if (!carouselContainer) {
-        console.error("❌ Carousel container not found.");
+        console.error("❌ ERROR: Carousel container not found.");
         return;
     }
 
-    carouselContainer.innerHTML = ""; // Clear existing products
+    carouselContainer.innerHTML = `<p class="loading-message">Loading best sellers...</p>`; // Show loading message
 
     try {
         const q = query(
@@ -61,7 +61,7 @@ async function fetchBestSellers() {
         initializeSwiper();
 
     } catch (error) {
-        console.error("❌ Error loading best sellers:", error);
+        console.error("❌ ERROR: Failed to load best sellers:", error);
         carouselContainer.innerHTML = `<p class="error-message">Failed to load best sellers. Please try again later.</p>`;
     }
 }
@@ -94,7 +94,7 @@ function initializeSwiper() {
 // Function to update `sales_count` when an item is purchased
 async function updateSalesCount(productId) {
     if (!productId) {
-        console.error("❌ Missing product ID.");
+        console.error("❌ ERROR: Missing product ID.");
         return;
     }
 
@@ -103,9 +103,9 @@ async function updateSalesCount(productId) {
         await updateDoc(productRef, {
             sales_count: increment(1) // Increase sales count by 1
         });
-        console.log(`✅ Sales count updated for product ID: ${productId}`);
+        console.log(`✅ SUCCESS: Sales count updated for product ID: ${productId}`);
     } catch (error) {
-        console.error(`❌ Failed to update sales count for product ID: ${productId}`, error);
+        console.error(`❌ ERROR: Failed to update sales count for product ID: ${productId}`, error);
     }
 }
 
