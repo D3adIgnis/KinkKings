@@ -55,7 +55,7 @@ body::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 15px 20px;
     background: rgba(0, 0, 0, 0.9);
     position: sticky;
     top: 0;
@@ -70,7 +70,7 @@ body::before {
 }
 
 .logo {
-    max-width: 100px; /* Adjusted size dynamically */
+    max-width: 90px; /* Adjusted size dynamically */
     height: auto;
     transition: all 0.3s ease-in-out;
 }
@@ -254,7 +254,7 @@ footer {
     }
 
     .logo {
-        max-width: 80px;
+        max-width: 75px;
     }
 
     .menu-toggle {
@@ -272,6 +272,7 @@ footer {
         left: 0;
         padding: 10px 0;
         z-index: 1000;
+        transition: all 0.3s ease-in-out;
     }
 
     .navbar a {
