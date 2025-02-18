@@ -9,10 +9,10 @@ let db; // Global Firestore database reference
 async function getFirebaseConfig() {
     try {
         const response = await fetch("firebase-config.json");
-        if (!response.ok) throw new Error("Failed to load Firebase config. Ensure the file is available.");
+        if (!response.ok) throw new Error("❌ ERROR: Failed to load Firebase config.");
         return await response.json();
     } catch (error) {
-        console.error("❌ ERROR: Firebase configuration load failed:", error);
+        console.error(error);
         return null;
     }
 }
@@ -29,8 +29,8 @@ async function initFirebase() {
 
     try {
         const app = initializeApp(firebaseConfig);
-        db = getFirestore(app); // Assign Firestore database globally
-        console.log("✅ Firebase Initialized Securely");
+        db = getFirestore(app);
+        console.log("✅ Firebase Initialized Successfully");
 
         fetchBestSellers();
     } catch (error) {
@@ -48,15 +48,10 @@ async function fetchBestSellers() {
         return;
     }
 
-    carouselContainer.innerHTML = `<p class="loading-message">🔄 Loading best sellers...</p>`; // Show loading message
+    carouselContainer.innerHTML = `<p class="loading-message">🔄 Loading best sellers...</p>`;
 
     try {
-        const q = query(
-            collection(db, "products"),
-            orderBy("sales_count", "desc"),
-            limit(6)
-        );
-
+        const q = query(collection(db, "products"), orderBy("sales_count", "desc"), limit(6));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
@@ -83,7 +78,6 @@ async function fetchBestSellers() {
 
         carouselContainer.innerHTML = slides;
         initializeSwiper();
-
     } catch (error) {
         console.error("❌ ERROR: Failed to load best sellers:", error);
         carouselContainer.innerHTML = `<p class="error-message">⚠️ Failed to load best sellers. Please try again later.</p>`;
@@ -103,7 +97,7 @@ function initializeSwiper() {
         spaceBetween: 10,
         loop: true,
         autoplay: {
-            delay: 3000, // Switch image every 3 seconds
+            delay: 3000,
             disableOnInteraction: false,
         },
         navigation: {
@@ -140,7 +134,7 @@ async function updateSalesCount(productId) {
 }
 
 /**
- * Event Listener: Detect clicks on "Add to Cart" buttons
+ * Event Listener: Detect clicks on "Add to Cart" buttons dynamically
  */
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("add-to-cart")) {
@@ -150,7 +144,7 @@ document.addEventListener("click", function(event) {
 });
 
 /**
- * Hamburger Menu - Top Left Corner
+ * Hamburger Menu (Sidebar Navigation)
  */
 document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.getElementById("menu-toggle");
@@ -158,31 +152,35 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeBtn = document.getElementById("close-btn");
     const overlay = document.getElementById("overlay");
 
-    // Open Sidebar
-    menuToggle.addEventListener("click", () => {
-        sidebar.classList.add("show");
-        overlay.classList.add("show");
-    });
+    if (menuToggle && sidebar && closeBtn && overlay) {
+        // Open Sidebar
+        menuToggle.addEventListener("click", () => {
+            sidebar.classList.add("show");
+            overlay.classList.add("show");
+        });
 
-    // Close Sidebar
-    closeBtn.addEventListener("click", () => {
-        sidebar.classList.remove("show");
-        overlay.classList.remove("show");
-    });
-
-    // Close when clicking outside
-    overlay.addEventListener("click", () => {
-        sidebar.classList.remove("show");
-        overlay.classList.remove("show");
-    });
-
-    // Close on "Escape" key press
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
+        // Close Sidebar
+        closeBtn.addEventListener("click", () => {
             sidebar.classList.remove("show");
             overlay.classList.remove("show");
-        }
-    });
+        });
+
+        // Close when clicking outside
+        overlay.addEventListener("click", () => {
+            sidebar.classList.remove("show");
+            overlay.classList.remove("show");
+        });
+
+        // Close on "Escape" key press
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                sidebar.classList.remove("show");
+                overlay.classList.remove("show");
+            }
+        });
+    } else {
+        console.error("❌ ERROR: Sidebar elements missing from the DOM.");
+    }
 });
 
 /**
