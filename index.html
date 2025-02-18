@@ -14,13 +14,21 @@
 
     <!-- Header Section -->
     <header class="header">
+        <!-- Hamburger Menu (☰) on Left -->
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+
         <div class="logo-container">
             <a href="index.html">
                 <img class="logo" src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" 
                     alt="Kink Kings Logo" loading="lazy">
             </a>
         </div>
-        <nav class="navbar">
+    </header>
+
+    <!-- Sidebar Navigation (Off-Canvas) -->
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" id="close-btn">&times;</button>
+        <nav class="sidebar-nav">
             <a href="index.html">Home</a>
             <a href="categories.html">Categories</a>
             <a href="products.html">Products</a>
@@ -29,7 +37,7 @@
             <a href="login.html">Login</a>
             <a href="register.html">Register</a>
         </nav>
-    </header>
+    </div>
 
     <!-- Best Sellers Section -->
     <section class="best-sellers">
