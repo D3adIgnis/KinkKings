@@ -99,7 +99,7 @@ body::before {
 
 /* Hamburger Menu */
 .menu-toggle {
-    display: none;
+    display: block;
     cursor: pointer;
     font-size: 30px;
     color: gold;
@@ -109,12 +109,12 @@ body::before {
     z-index: 1500;
 }
 
-/* Mobile Slide Menu */
+/* Mobile Slide Menu (Sidebar Navigation) */
 .slide-menu {
     position: fixed;
     top: 0;
-    left: -250px; /* Start hidden off-screen */
-    width: 250px;
+    left: -270px; /* Start hidden off-screen */
+    width: 270px;
     height: 100%;
     background: rgba(0, 0, 0, 0.95);
     padding-top: 60px;
@@ -125,6 +125,22 @@ body::before {
     box-shadow: 5px 0px 10px rgba(255, 215, 0, 0.5);
 }
 
+/* Close Button for Sidebar */
+.close-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 28px;
+    color: gold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.close-menu:hover {
+    color: deepPink;
+}
+
+/* Sidebar Links */
 .slide-menu a {
     color: gold;
     padding: 15px;
@@ -135,13 +151,33 @@ body::before {
 }
 
 .slide-menu a:hover {
-    color: deepPink;
-    background: rgba(255, 20, 147, 0.2);
+    color: white;
+    background: deepPink;
 }
 
 /* Show Menu */
 .slide-menu.show {
     left: 0;
+}
+
+/* Overlay when Sidebar is Open */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1100;
+}
+
+/* Show Overlay */
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Best Sellers Section */
@@ -314,3 +350,4 @@ footer {
         max-height: 280px;
     }
 }
+0
