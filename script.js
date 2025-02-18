@@ -150,6 +150,25 @@ document.addEventListener("click", function(event) {
 });
 
 /**
+ * Hamburger Menu - Top Left Corner
+ */
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const slideMenu = document.querySelector(".slide-menu");
+    const closeMenu = document.querySelector(".close-menu");
+
+    if (menuToggle && slideMenu) {
+        menuToggle.addEventListener("click", () => {
+            slideMenu.classList.toggle("show");
+        });
+
+        closeMenu.addEventListener("click", () => {
+            slideMenu.classList.remove("show");
+        });
+    }
+});
+
+/**
  * Load Firebase securely when page loads
  */
 document.addEventListener("DOMContentLoaded", initFirebase);
