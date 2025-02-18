@@ -70,7 +70,7 @@ body::before {
 }
 
 .logo {
-    max-width: 90px; /* Adjusted size dynamically */
+    max-width: 90px;
     height: auto;
     transition: all 0.3s ease-in-out;
 }
@@ -97,12 +97,51 @@ body::before {
     text-shadow: 0px 0px 10px deepPink;
 }
 
-/* Hamburger Menu for Mobile */
+/* Hamburger Menu */
 .menu-toggle {
     display: none;
     cursor: pointer;
-    font-size: 28px;
+    font-size: 30px;
     color: gold;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    z-index: 1500;
+}
+
+/* Mobile Slide Menu */
+.slide-menu {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Start hidden off-screen */
+    width: 250px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    padding-top: 60px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0px 10px rgba(255, 215, 0, 0.5);
+}
+
+.slide-menu a {
+    color: gold;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    transition: 0.3s ease-in-out;
+}
+
+.slide-menu a:hover {
+    color: deepPink;
+    background: rgba(255, 20, 147, 0.2);
+}
+
+/* Show Menu */
+.slide-menu.show {
+    left: 0;
 }
 
 /* Best Sellers Section */
@@ -259,29 +298,6 @@ footer {
 
     .menu-toggle {
         display: block;
-    }
-
-    .navbar {
-        display: none;
-        flex-direction: column;
-        text-align: center;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 10px 0;
-        z-index: 1000;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .navbar a {
-        display: block;
-        padding: 10px;
-    }
-
-    .show-menu {
-        display: flex;
     }
 
     .featured-collections {
