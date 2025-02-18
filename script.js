@@ -153,19 +153,36 @@ document.addEventListener("click", function(event) {
  * Hamburger Menu - Top Left Corner
  */
 document.addEventListener("DOMContentLoaded", function () {
-    const menuToggle = document.querySelector(".menu-toggle");
-    const slideMenu = document.querySelector(".slide-menu");
-    const closeMenu = document.querySelector(".close-menu");
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const closeBtn = document.getElementById("close-btn");
+    const overlay = document.getElementById("overlay");
 
-    if (menuToggle && slideMenu) {
-        menuToggle.addEventListener("click", () => {
-            slideMenu.classList.toggle("show");
-        });
+    // Open Sidebar
+    menuToggle.addEventListener("click", () => {
+        sidebar.classList.add("show");
+        overlay.classList.add("show");
+    });
 
-        closeMenu.addEventListener("click", () => {
-            slideMenu.classList.remove("show");
-        });
-    }
+    // Close Sidebar
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+    });
+
+    // Close when clicking outside
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+    });
+
+    // Close on "Escape" key press
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            sidebar.classList.remove("show");
+            overlay.classList.remove("show");
+        }
+    });
 });
 
 /**
