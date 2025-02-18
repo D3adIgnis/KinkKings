@@ -3,11 +3,13 @@ import { getFirestore, collection, getDocs, query, orderBy, limit, doc, updateDo
 
 let db; // Global Firestore database reference
 
-// Function to fetch Firebase configuration securely
+/**
+ * Fetch Firebase configuration securely
+ */
 async function getFirebaseConfig() {
     try {
         const response = await fetch("firebase-config.json");
-        if (!response.ok) throw new Error("Failed to load Firebase config. Check the file path.");
+        if (!response.ok) throw new Error("Failed to load Firebase config. Ensure the file is available.");
         return await response.json();
     } catch (error) {
         console.error("❌ ERROR: Firebase configuration load failed:", error);
@@ -15,7 +17,9 @@ async function getFirebaseConfig() {
     }
 }
 
-// Initialize Firebase
+/**
+ * Initialize Firebase and Firestore
+ */
 async function initFirebase() {
     const firebaseConfig = await getFirebaseConfig();
     if (!firebaseConfig) {
@@ -23,14 +27,20 @@ async function initFirebase() {
         return;
     }
 
-    const app = initializeApp(firebaseConfig);
-    db = getFirestore(app); // Assign Firestore database globally
-    console.log("✅ Firebase Initialized Securely");
+    try {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app); // Assign Firestore database globally
+        console.log("✅ Firebase Initialized Securely");
 
-    fetchBestSellers();
+        fetchBestSellers();
+    } catch (error) {
+        console.error("❌ ERROR: Firebase initialization failed:", error);
+    }
 }
 
-// Function to fetch and display best-selling products in the carousel
+/**
+ * Fetch and display best-selling products in the carousel
+ */
 async function fetchBestSellers() {
     const carouselContainer = document.getElementById("best-sellers-carousel");
     if (!carouselContainer) {
@@ -38,7 +48,7 @@ async function fetchBestSellers() {
         return;
     }
 
-    carouselContainer.innerHTML = `<p class="loading-message">Loading best sellers...</p>`; // Show loading message
+    carouselContainer.innerHTML = `<p class="loading-message">🔄 Loading best sellers...</p>`; // Show loading message
 
     try {
         const q = query(
@@ -76,11 +86,13 @@ async function fetchBestSellers() {
 
     } catch (error) {
         console.error("❌ ERROR: Failed to load best sellers:", error);
-        carouselContainer.innerHTML = `<p class="error-message">Failed to load best sellers. Please try again later.</p>`;
+        carouselContainer.innerHTML = `<p class="error-message">⚠️ Failed to load best sellers. Please try again later.</p>`;
     }
 }
 
-// Function to initialize Swiper.js after data loads
+/**
+ * Initialize Swiper.js after best sellers are loaded
+ */
 function initializeSwiper() {
     if (window.swiperInstance) {
         window.swiperInstance.destroy(true, true); // Destroy existing instance before reinitializing
@@ -103,9 +115,13 @@ function initializeSwiper() {
             clickable: true,
         },
     });
+
+    console.log("✅ Swiper Initialized Successfully");
 }
 
-// Function to update `sales_count` when an item is purchased
+/**
+ * Update `sales_count` when an item is purchased
+ */
 async function updateSalesCount(productId) {
     if (!productId) {
         console.error("❌ ERROR: Missing product ID.");
@@ -123,7 +139,9 @@ async function updateSalesCount(productId) {
     }
 }
 
-// Add event listeners to all "Add to Cart" buttons dynamically
+/**
+ * Event Listener: Detect clicks on "Add to Cart" buttons
+ */
 document.addEventListener("click", function(event) {
     if (event.target.classList.contains("add-to-cart")) {
         const productId = event.target.dataset.id;
@@ -131,5 +149,7 @@ document.addEventListener("click", function(event) {
     }
 });
 
-// Load Firebase securely when page loads
+/**
+ * Load Firebase securely when page loads
+ */
 document.addEventListener("DOMContentLoaded", initFirebase);
