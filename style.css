@@ -63,14 +63,16 @@ body::before {
     z-index: 1000;
 }
 
-/* Logo */
+/* Center Logo */
 .logo-container {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .logo {
-    max-width: 90px;
+    max-width: 120px;
     height: auto;
     transition: all 0.3s ease-in-out;
 }
@@ -153,6 +155,7 @@ body::before {
 .slide-menu a:hover {
     color: white;
     background: deepPink;
+    text-shadow: 0px 0px 10px gold;
 }
 
 /* Show Menu */
@@ -250,6 +253,7 @@ body::before {
     box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8);
 }
 
+/* Glow Effect for Buttons */
 .collection a {
     display: block;
     margin-top: 10px;
@@ -264,6 +268,7 @@ body::before {
 .collection a:hover {
     background: deepPink;
     color: white;
+    box-shadow: 0px 0px 15px gold;
 }
 
 /* Newsletter Signup */
@@ -305,10 +310,6 @@ footer {
     color: white;
 }
 
-.footer-links {
-    margin-top: 10px;
-}
-
 .footer-links a {
     color: gold;
     text-decoration: none;
@@ -329,7 +330,7 @@ footer {
     }
 
     .logo {
-        max-width: 75px;
+        max-width: 85px;
     }
 
     .menu-toggle {
@@ -340,14 +341,4 @@ footer {
         flex-direction: column;
         align-items: center;
     }
-
-    .newsletter input {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .swiper-slide img {
-        max-height: 280px;
-    }
 }
-0
