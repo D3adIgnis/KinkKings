@@ -17,6 +17,7 @@
         <!-- Hamburger Menu (☰) on Left -->
         <div class="menu-toggle" id="menu-toggle">&#9776;</div>
 
+        <!-- Logo Centered -->
         <div class="logo-container">
             <a href="index.html">
                 <img class="logo" src="https://github.com/D3adIgnis/KinkKings/blob/main/images/3D%20logo%20transparent%20back.png?raw=true" 
@@ -130,9 +131,40 @@
         initFirebase();
     </script>
 
-    <!-- Swiper.js Script -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script type="module" src="script.js"></script>
+    <!-- Sidebar Toggle Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menu-toggle");
+            const sidebar = document.getElementById("sidebar");
+            const closeBtn = document.getElementById("close-btn");
+            const overlay = document.getElementById("overlay");
 
-</body>
-</html>
+            // Open Sidebar
+            menuToggle.addEventListener("click", () => {
+                sidebar.classList.add("show");
+                overlay.classList.add("show");
+            });
+
+            // Close Sidebar
+            closeBtn.addEventListener("click", () => {
+                sidebar.classList.remove("show");
+                overlay.classList.remove("show");
+            });
+
+            // Close Sidebar when clicking outside
+            overlay.addEventListener("click", () => {
+                sidebar.classList.remove("show");
+                overlay.classList.remove("show");
+            });
+
+            // Close Sidebar on "Escape" key press
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    sidebar.classList.remove("show");
+                    overlay.classList.remove("show");
+                }
+            });
+        });
+    </script>
+
+    <!-- Swiper.js 
