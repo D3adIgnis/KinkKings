@@ -99,9 +99,9 @@ body::before {
     text-shadow: 0px 0px 10px deepPink;
 }
 
-/* Hamburger Menu */
+/* Hamburger Menu - Only Visible on Mobile */
 .menu-toggle {
-    display: block;
+    display: none;
     cursor: pointer;
     font-size: 30px;
     color: gold;
@@ -183,145 +183,6 @@ body::before {
     visibility: visible;
 }
 
-/* Best Sellers Section */
-.best-sellers {
-    text-align: center;
-    padding: 50px 0;
-}
-
-.section-title {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 10px gold;
-}
-
-/* Swiper Carousel */
-.swiper-container {
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto 50px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
-}
-
-.swiper-slide {
-    text-align: center;
-    padding: 10px;
-}
-
-.swiper-slide img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.swiper-slide img:hover {
-    transform: scale(1.05);
-}
-
-/* Featured Collections */
-.featured {
-    text-align: center;
-    padding: 50px;
-    background: rgba(0, 0, 0, 0.8);
-}
-
-.featured-collections {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.collection {
-    text-align: center;
-    width: 270px;
-}
-
-.collection img {
-    width: 100%;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.collection img:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8);
-}
-
-/* Glow Effect for Buttons */
-.collection a {
-    display: block;
-    margin-top: 10px;
-    background: gold;
-    padding: 12px;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-    transition: 0.3s ease-in-out;
-}
-
-.collection a:hover {
-    background: deepPink;
-    color: white;
-    box-shadow: 0px 0px 15px gold;
-}
-
-/* Newsletter Signup */
-.newsletter {
-    text-align: center;
-    padding: 40px;
-    background: linear-gradient(45deg, black, deepPink);
-}
-
-.newsletter input {
-    padding: 12px;
-    font-size: 16px;
-    width: 300px;
-    margin-right: 10px;
-    border-radius: 5px;
-    border: none;
-}
-
-.newsletter button {
-    padding: 12px 20px;
-    font-size: 16px;
-    background: gold;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s ease-in-out;
-}
-
-.newsletter button:hover {
-    background: red;
-    color: white;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: black;
-    color: white;
-}
-
-.footer-links a {
-    color: gold;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: 0.3s ease-in-out;
-}
-
-.footer-links a:hover {
-    color: deepPink;
-    text-shadow: 0px 0px 10px deepPink;
-}
-
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .header {
@@ -334,9 +195,13 @@ footer {
     }
 
     .menu-toggle {
-        display: block;
+        display: block; /* Only show hamburger on mobile */
     }
 
+    .navbar {
+        display: none; /* Hide normal navbar on mobile */
+    }
+    
     .featured-collections {
         flex-direction: column;
         align-items: center;
